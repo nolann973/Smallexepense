@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker - Gérez votre argent intelligemment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/Web site/src/styl.css">
+    <link rel="stylesheet" href="/Web site/src/sty.css">
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVCBY39GCP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XVCBY39GCP');
+</script>
+
+</head>
+<body>
+    <nav id="navbar">
+        <div class="logo" onclick="showPage('home')">💰 Budget Tracker</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a onclick="showPage('home')" class="nav-link">Accueil</a></li>
+            <li><a onclick="showPage('features')" class="nav-link">Fonctionnalités</a></li>
+            <li><a onclick="showPage('pricing')" class="nav-link">Tarifs</a></li>
+            <li><a onclick="showPage('contact')" class="nav-link">Contact</a></li>
+            <li><a onclick="showPage('about')" class="nav-link">À propos</a></li>
+<li>
+  <a href="Compte.html" class="nav-link">Se connecter</a>
+</li>
+
+
+        </ul>
+        <button class="cta-button" onclick="alert('Téléchargement bientôt disponible !')">Télécharger</button>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Prenez le contrôle de vos <span class="gradient-text">finances</span></h1>
+                <p>L'application moderne qui vous aide à gérer votre budget mensuel, suivre vos dépenses en temps réel et atteindre vos objectifs financiers.</p>
+                <div class="hero-buttons">
+                <button class="btn-dark" onclick="showPage('pricing')">Télécharger / Tarifs</button>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>●●●●</span>
+                        </div>
+                        <div class="app-header">0
+                            <h3>Mon Budget</h3>
+                            <div class="budget-display">
+                                <div class="stat-label">Budget mensuel</div>
+                                <div class="budget-amount">1 200€</div>
+                            </div>
+                        </div>
+                        <div class="app-content">
+                            <div class="stat-card">
+                                <div class="stat-label">Dépensé ce mois</div>
+                                <div class="stat-value">255€</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Reste disponible</div>
+                                <div class="stat-value">945€</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Économies</div>
+                                <div class="stat-value">+78%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="team-card">
+  
+            </div>
+        </section>
+
+        <section class="stats">
+            <h2 class="section-title">Des chiffres qui <span class="gradient-text">parlent</span></h2>
+            <p class="section-subtitle">Rejoignez des milliers d'utilisateurs qui ont repris le contrôle</p>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                          <div class="stat-number" data-target="500"></div>
+                    <div class="stat-text">Utilisateurs actifs</div>
+                </div>
+                <div class="stat-item">
+      <div class="stat-number" data-target="500"></div>
+                    <div class="stat-text">Dépenses suivies</div>
+                </div>
+                <div class="stat-item">
+      <div class="stat-number" data-target="100"></div>
+                    <div class="stat-text">Économies moyennes</div>
+                </div>
+                <div class="stat-item">
+                          <div class="stat-number" data-target="4.9">★</div>
+                    <div class="stat-text">Note moyenne</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2 class="section-title">Ce que disent nos <span class="gradient-text">utilisateurs</span></h2>
+            <p class="section-subtitle">Des milliers de personnes nous font confiance</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨</div>
+                        <div class="testimonial-info">
+                            <h4>marie</h4>
+                            <div class="testimonial-role">Entrepreneur </div>
+                        </div> 
+                    </div>
+                    <p class="testimonial-text">"Budget Tracker a transformé ma façon de gérer mon argent. J'ai économisé plus de 3000€ en 6 mois !"</p>
+                    <div class="stars">★★★★★</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👩</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah Martin</h4>
+                            <div class="testimonial-role">Étudiante</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"L'interface est super intuitive ! Je peux suivre mes dépenses en quelques secondes. Parfait pour les étudiants."</p>
+                    <div class="stars">★★★★★</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">👨</div>
+                        <div class="testimonial-info">
+                            <h4>Julien Bernard</h4>
+                            <div class="testimonial-role">Chef de famille</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Excellent pour gérer le budget familial. Les alertes intelligentes m'aident à ne jamais dépasser mon budget."</p>
+                    <div class="stars">★★★★★</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="section-title">Questions <span class="gradient-text">fréquentes</span></h2>
+            <p class="section-subtitle">Tout ce que vous devez savoir</p>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Budget Tracker est-il vraiment gratuit ?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui ! Notre plan gratuit offre toutes les fonctionnalités essentielles pour gérer votre budget. Pour des fonctionnalités avancées comme les catégories illimitées et l'export de données, vous pouvez passer au plan Premium.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Mes données sont-elles sécurisées ?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolument ! Nous utilisons un chiffrement de bout en bout pour protéger toutes vos données financières. Vos informations sont stockées de manière sécurisée et ne sont jamais partagées avec des tiers.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Puis-je utiliser Budget Tracker sur plusieurs appareils ?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oui ! Budget Tracker synchronise automatiquement vos données via le cloud sur tous vos appareils (iOS, Android, Web). Accédez à votre budget n'importe où, n'importe quand.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Comment fonctionne l'essai gratuit Premium ?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Profitez de 30 jours d'essai gratuit sans carte bancaire requise. Testez toutes les fonctionnalités Premium et décidez ensuite si vous souhaitez continuer. Aucun engagement !</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Puis-je annuler mon abonnement à tout moment ?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Bien sûr ! Vous pouvez annuler votre abonnement à tout moment depuis les paramètres de votre compte. Vos données restent accessibles et vous conservez l'accès jusqu'à la fin de votre période payée.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter">
+            <h2>Restez informé des <span class="gradient-text">nouveautés</span></h2>
+            <p>Recevez nos astuces budgétaires et les dernières fonctionnalités directement dans votre boîte mail</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Merci ! Vous êtes inscrit à notre newsletter.');">
+                <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
+                <button type="submit" class="newsletter-btn">S'inscrire</button>
+            </form>
+        </section>
+
+        <section class="cta-section">
+            <h2>Prêt à transformer vos finances ?</h2>
+            <p>Téléchargez Budget Tracker gratuitement et commencez dès aujourd'hui</p>
+           <button class="btn-dark" onclick="showPage('pricing')">Télécharger </button>
+
+        </section>
+    </div>
+
+<div id="about" class="page">
+        <section class="about-hero">
+            <h1 class="section-title">Notre <span class="gradient-text">Mission</span></h1>
+            <p class="section-subtitle">Rendre la gestion financière accessible à tous</p>
+        </section>
+
+        <div class="about-content">
+            <div class="about-section">
+                <h2>Qui sommes-nous ?</h2>
+                <p>
+                    Budget Tracker est né d'une vision simple : permettre à chacun de reprendre le contrôle de ses finances personnelles. Nous croyons que la gestion budgétaire ne devrait pas être compliquée, stressante ou réservée aux experts financiers.
+                </p>
+                <p>
+                    Notre équipe de passionnés a créé une application intuitive qui transforme la gestion de budget en une expérience simple et agréable. Que vous soyez étudiant, jeune actif ou parent de famille, Budget Tracker s'adapte à vos besoins.
+                </p>
+            </div>
+
+            <div class="about-section">
+                <h2>Nos <span class="gradient-text">Valeurs</span></h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">🎯</div>
+                        <h3>Simplicité</h3>
+                        <p>Une interface intuitive qui permet à tous de gérer leur budget sans formation.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🔒</div>
+                        <h3>Sécurité</h3>
+                        <p>Vos données financières sont protégées avec les plus hauts standards de sécurité.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">💡</div>
+                        <h3>Innovation</h3>
+                        <p>Nous améliorons constamment l'application avec de nouvelles fonctionnalités.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">🤝</div>
+                        <h3>Transparence</h3>
+                        <p>Pas de frais cachés, pas de surprises. Juste une application honnête.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2>Notre <span class="gradient-text">Équipe</span></h2>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-photo">👨‍💼</div>
+                        <div class="team-info">
+                            <h3>Antoinette Nolan'n & Ai</h3>
+                            <div class="team-role">CEO & Co-fondateur</div>
+                            <p>SmallBudget est un projet imaginé, designé et codé par Nolan’n avec l’aide d’une intelligence artificielle pour accélérer le développement.</p>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+
+     <section class="stats">
+  <h2 class="section-title">Notre impact en chiffres</h2>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-number" data-target="500">0</div>
+      <div class="stat-text">Utilisateurs satisfaits</div>
+    </div>
+
+    <div class="stat-item">
+      <div class="stat-number" data-target="20000">0</div>
+      <div class="stat-text">Dépenses trackées</div>
+    </div>
+
+    <div class="stat-item">
+      <div class="stat-number" data-target="1500">0</div>
+      <div class="stat-text">Budget géré (€)</div>
+    </div>
+  </div>
+</section>
+
+
+
+        <section class="cta-section">
+            <h2>Rejoignez notre communauté</h2>
+            <p>Faites partie de la révolution de la gestion budgétaire</p>
+            <button class="btn-dark" onclick="showPage('contact')">Contactez-nous</button>
+        </section>
+    </div>
+
+
+    <!-- FEATURES PAGE -->
+    <div id="features" class="page">
+        <section class="hero" style="min-height: 60vh;">
+            <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1>Fonctionnalités <span class="gradient-text">puissantes</span></h1>
+                <p>Tout ce dont vous avez besoin pour gérer vos finances efficacement</p>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Tableau de bord visuel</h3>
+                    <p>Visualisez vos dépenses en un coup d'œil avec des graphiques interactifs et des indicateurs colorés pour une meilleure compréhension.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Ajout ultra-rapide</h3>
+                    <p>Enregistrez vos dépenses en moins de 10 secondes grâce à notre formulaire optimisé et notre interface intuitive.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Alertes intelligentes</h3>
+                    <p>Recevez des notifications lorsque vous approchez de votre limite budgétaire (80% et 100%) pour mieux contrôler vos finances.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📂</div>
+                    <h3>Catégories personnalisables</h3>
+                    <p>Organisez vos dépenses par catégorie : alimentation, transport, loisirs, et suivez où va votre argent.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Historique détaillé</h3>
+                    <p>Accédez à l'historique complet de vos dépenses avec filtres par date, catégorie et montant pour une analyse approfondie.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Sécurité maximale</h3>
+                    <p>Vos données financières sont protégées avec un chiffrement de bout en bout et une authentification sécurisée.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Multi-plateformes</h3>
+                    <p>Disponible sur iOS et Android avec synchronisation cloud automatique entre tous vos appareils.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Objectifs d'épargne</h3>
+                    <p>Définissez vos objectifs financiers et suivez votre progression en temps réel pour atteindre vos rêves.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
+                    <h3>Export de données</h3>
+                    <p>Exportez vos données en CSV ou PDF pour une analyse approfondie ou pour vos déclarations fiscales.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Découvrez toutes nos fonctionnalités</h2>
+            <p>Essayez Budget Tracker gratuitement pendant 30 jours</p>
+            <button class="btn-dark" onclick="showPage('pricing')">Télécharger / Tarifs</button>
+        </section>
+    </div>
+
+    <!-- PRICING PAGE -->
+    <div id="pricing" class="page">
+        <section class="hero" style="min-height: 60vh;">
+            <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1>Des tarifs <span class="gradient-text">transparents</span></h1>
+                <p>Choisissez le plan qui correspond à vos besoins</p>
+            </div>
+        </section>
+
+        <section class="stats" style="padding: 4rem 5%;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto;">
+                <div style="background: #1a1a1a; border-radius: 30px; padding: 3rem; border: 2px solid rgba(255, 255, 255, 0.05); transition: all 0.3s;">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Gratuit</h3>
+                        <div style="font-size: 3.5rem; font-weight: 800; color: #00FF88; margin-bottom: 0.5rem;">0€</div>
+                        <div style="color: #888;">Pour toujours</div>
+                    </div>
+                    
+                    <ul style="list-style: none; margin: 2rem 0;">
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Budget mensuel illimité
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Suivi des dépenses
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            5 catégories personnalisées
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Graphiques de base
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Historique 3 mois
+                        </li>
+                    </ul>
+                    
+                    <button style="width: 100%; padding: 1.2rem; border-radius: 50px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.3s; border: 2px solid #00FF88; background: transparent; color: #00FF88;" onclick="alert('Inscription gratuite bientôt disponible !')">Commencer</button>
+                </div>
+
+                <div style="background: #1a1a1a; border-radius: 30px; padding: 3rem; border: 2px solid #00FF88; transition: all 0.3s; transform: scale(1.05); box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2); position: relative;">
+                    <div style="position: absolute; top: -15px; right: 30px; background: linear-gradient(135deg, #00FF88, #00CC6E); color: #0a0a0a; padding: 0.5rem 1.5rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">POPULAIRE</div>
+                    
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Premium</h3>
+                        <div style="font-size: 3.5rem; font-weight: 800; color: #00FF88; margin-bottom: 0.5rem;">4.99€</div>
+                        <div style="color: #888;">par mois</div>
+                    </div>
+                    
+                    <ul style="list-style: none; margin: 2rem 0;">
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Tout du plan Gratuit
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Catégories illimitées
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Graphiques avancés
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Historique illimité
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Export CSV/PDF
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Synchronisation cloud
+                        </li>
+                    </ul>
+                    
+                    <button style="width: 100%; padding: 1.2rem; border-radius: 50px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #00FF88, #00CC6E); color: #0a0a0a; border: none;" onclick="alert('Abonnement bientôt disponible !')">Passer à Premium</button>
+                </div>
+
+                <div style="background: #1a1a1a; border-radius: 30px; padding: 3rem; border: 2px solid rgba(255, 255, 255, 0.05); transition: all 0.3s;">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">Famille</h3>
+                        <div style="font-size: 3.5rem; font-weight: 800; color: #00FF88; margin-bottom: 0.5rem;">9.99€</div>
+                        <div style="color: #888;">par mois</div>
+                    </div>
+                    
+                    <ul style="list-style: none; margin: 2rem 0;">
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Tout du plan Premium
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Jusqu'à 5 comptes
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Budget partagé
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Vue consolidée
+                        </li>
+                        <li style="padding: 1rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 1rem;">
+                            <span style="color: #00FF88; font-weight: 800; font-size: 1.2rem;">✓</span>
+                            Support dédié 24/7
+                        </li>
+                    </ul>
+                    
+                    <button style="width: 100%; padding: 1.2rem; border-radius: 50px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: all 0.3s; border: 2px solid #00FF88; background: transparent; color: #00FF88;" onclick="alert('Abonnement famille bientôt disponible !')">Commencer en famille</button>
+                </div>
+            </div>
+        </section>
+
+    
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <section class="hero" style="min-height: 60vh;">
+            <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <h1>Contactez-<span class="gradient-text">nous</span></h1>
+                <p>Notre équipe est là pour vous aider</p>
+            </div>
+        </section>
+
+        <section style="padding: 4rem 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+            <div style="display: flex; flex-direction: column; gap: 3rem;">
+                <div style="background: #1a1a1a; padding: 2.5rem; border-radius: 25px; border: 1px solid rgba(0, 255, 136, 0.1);">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #00FF88, #00CC6E); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.5rem;">📧</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">Email</h3>
+                    <p style="color: #888; line-height: 1.8;">Envoyez-nous un message et nous vous répondrons dans les 24 heures.</p>
+                    <p style="color: #00FF88; font-weight: 600; margin-top: 1rem;">contact@budgettracker.fr</p>
+                </div>
+
+                <div style="background: #1a1a1a; padding: 2.5rem; border-radius: 25px; border: 1px solid rgba(0, 255, 136, 0.1);">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #00FF88, #00CC6E); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.5rem;">💬</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">Chat en direct</h3>
+                    <p style="color: #888; line-height: 1.8;">Discutez avec notre équipe support du lundi au vendredi de 9h à 18h.</p>
+                    <button class="btn-primary" style="margin-top: 1rem;" onclick="alert('Chat bientôt disponible !')">Démarrer le chat</button>
+                </div>
+
+                <div style="background: #1a1a1a; padding: 2.5rem; border-radius: 25px; border: 1px solid rgba(0, 255, 136, 0.1);">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #00FF88, #00CC6E); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.5rem;">📱</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 1rem;">Réseaux sociaux</h3>
+                    <p style="color: #888; line-height: 1.8;">Suivez-nous pour les dernières actualités et astuces financières.</p>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem; font-size: 1.5rem;">
+                        <span style="cursor: pointer;">📘</span>
+                        <span style="cursor: pointer;">📷</span>
+                        <span style="cursor: pointer;">🐦</span>
+                        <span style="cursor: pointer;">💼</span>
+                    </div>
+                </div>
+            </div>
+
+            <form style="background: #1a1a1a; padding: 3rem; border-radius: 25px; border: 1px solid rgba(0, 255, 136, 0.1);" onsubmit="event.preventDefault(); alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');">
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: block; margin-bottom: 0.8rem; font-weight: 600;">Nom complet</label>
+                    <input type="text" required placeholder="Jean Dupont" style="width: 100%; padding: 1rem 1.5rem; background: #0a0a0a; border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 15px; color: #ffffff; font-family: 'Poppins', sans-serif; font-size: 1rem;">
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: block; margin-bottom: 0.8rem; font-weight: 600;">Email</label>
+                    <input type="email" required placeholder="jean@exemple.fr" style="width: 100%; padding: 1rem 1.5rem; background: #0a0a0a; border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 15px; color: #ffffff; font-family: 'Poppins', sans-serif; font-size: 1rem;">
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: block; margin-bottom: 0.8rem; font-weight: 600;">Sujet</label>
+                    <input type="text" required placeholder="Comment puis-je vous aider ?" style="width: 100%; padding: 1rem 1.5rem; background: #0a0a0a; border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 15px; color: #ffffff; font-family: 'Poppins', sans-serif; font-size: 1rem;">
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: block; margin-bottom: 0.8rem; font-weight: 600;">Message</label>
+                    <textarea required placeholder="Décrivez votre demande en détail..." style="width: 100%; padding: 1rem 1.5rem; background: #0a0a0a; border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 15px; color: #ffffff; font-family: 'Poppins', sans-serif; font-size: 1rem; resize: vertical; min-height: 150px;"></textarea>
+                </div>
+
+                <button type="submit" style="width: 100%; padding: 1.2rem; background: linear-gradient(135deg, #00FF88, #00CC6E); color: #0a0a0a; border: none; border-radius: 50px; font-weight: 700; font-size: 1.1rem; cursor: pointer;">Envoyer le message</button>
+            </form>
+        </section>
+
+        <section class="cta-section">
+            <h2>Besoin d'aide immédiate ?</h2>
+            <p>Consultez notre centre d'aide pour trouver des réponses rapides</p>
+<button class="btn-dark" onclick="window.location.href='centreaide.html'">Centre d'aide</button> </section>
+
+
+        </section>
+    </div>
+
+    <!-- AI Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" onclick="toggleChat()" id="chatButton">
+            🤖
+            <span class="chat-badge" id="chatBadge">1</span>
+        </button>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-header-info">
+                    <h3>Assistant Budget</h3>
+                    <div class="chat-status">
+                        <span class="status-dot"></span>
+                        En ligne
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message">
+                    <div class="message-avatar">🤖</div>
+                    <div>
+                        <div class="message-content">
+                            Bonjour ! 👋 Je suis votre assistant virtuel Budget Tracker. Comment puis-je vous aider aujourd'hui ?
+                        </div>
+                        <div class="message-time">À l'instant</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-replies" id="quickReplies">
+                <button class="quick-reply" onclick="sendQuickReply('Comment commencer ?')">Comment commencer ?</button>
+                <button class="quick-reply" onclick="sendQuickReply('Conseils budgétaires')">Conseils budgétaires</button>
+                <button class="quick-reply" onclick="sendQuickReply('Prix Premium')">Prix Premium</button>
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Posez votre question..." onkeypress="handleKeyPress(event)">
+                <button class="chat-send-btn" onclick="sendMessage()" id="sendBtn">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a onclick="showPage('home')">Accueil</a>
+            <a onclick="showPage('features')">Fonctionnalités</a>
+            <a onclick="showPage('pricing')">Tarifs</a>
+            <a onclick="showPage('contact')">Contact</a>
+            <a href="#">Confidentialité</a>
+            <a href="#">CGU</a>
+        </div>
+        <p>&copy; 2025 Budget Tracker. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Chat AI functionality
+        const chatResponses = {
+            'comment commencer': 'Pour commencer avec Budget Tracker : 1️⃣ Téléchargez l\'app gratuite 2️⃣ Définissez votre budget mensuel 3️⃣ Ajoutez vos dépenses quotidiennes 4️⃣ Suivez vos progrès en temps réel ! C\'est aussi simple que ça 🎯',
+            'conseils budgétaires': 'Voici mes meilleurs conseils : 💡 Règle du 50/30/20 : 50% besoins, 30% envies, 20% épargne 💰 Suivez TOUTES vos dépenses 🎯 Fixez des objectifs réalistes 📊 Révisez votre budget chaque mois 🚫 Évitez les achats impulsifs',
+            'prix premium': 'Notre plan Premium est à seulement 4.99€/mois ! 🌟 Catégories illimitées 📊 Graphiques avancés 📁 Export CSV/PDF ☁️ Synchronisation cloud ✨ + 30 jours d\'essai GRATUIT sans carte bancaire !',
+            'sécurité': 'Vos données sont 100% sécurisées ! 🔒 Chiffrement de bout en bout 🛡️ Serveurs certifiés 🚫 Aucun partage avec des tiers 🔐 Authentification forte Votre vie privée est notre priorité absolue !',
+            'fonctionnalités': 'Budget Tracker offre : 📊 Tableau de bord visuel ⚡ Ajout ultra-rapide de dépenses 🔔 Alertes intelligentes 📂 Catégories personnalisables 📈 Historique complet 🎯 Objectifs d\'épargne 📱 Synchro multi-appareils',
+            'gratuit': 'Oui, Budget Tracker est 100% GRATUIT ! 🎉 Vous pouvez gérer votre budget mensuel, suivre vos dépenses, utiliser 5 catégories et voir votre historique sur 3 mois sans payer un centime. Le Premium débloque des fonctionnalités avancées.',
+            'application': 'Budget Tracker est disponible sur : 📱 iOS (App Store) 🤖 Android (Google Play) 💻 Version Web Toutes vos données se synchronisent automatiquement via le cloud !',
+            'aide': 'Je peux vous aider avec : ❓ Questions sur l\'application 💰 Conseils budgétaires 📊 Explication des fonctionnalités 💳 Informations sur les abonnements 🎯 Conseils d\'utilisation N\'hésitez pas à me poser vos questions !'
+        };
+
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            const chatButton = document.getElementById('chatButton');
+            const chatBadge = document.getElementById('chatBadge');
+            
+            chatWindow.classList.toggle('active');
+            chatButton.classList.toggle('active');
+            
+            if (chatWindow.classList.contains('active')) {
+                chatBadge.style.display = 'none';
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            addUserMessage(message);
+            input.value = '';
+            
+            document.getElementById('quickReplies').style.display = 'none';
+            
+            setTimeout(() => {
+                showTypingIndicator();
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    const response = getAIResponse(message);
+                    addBotMessage(response);
+                }, 1500);
+            }, 500);
+        }
+
+        function sendQuickReply(message) {
+            document.getElementById('chatInput').value = message;
+            sendMessage();
+        }
+
+        function addUserMessage(message) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const time = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            
+            const messageHTML = `
+                <div class="message user">
+                    <div class="message-avatar">👤</div>
+                    <div>
+                        <div class="message-content">${message}</div>
+                        <div class="message-time">${time}</div>
+                    </div>
+                </div>
+            `;
+            
+            messagesDiv.insertAdjacentHTML('beforeend', messageHTML);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addBotMessage(message) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const time = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            
+            const messageHTML = `
+                <div class="message">
+                    <div class="message-avatar">🤖</div>
+                    <div>
+                        <div class="message-content">${message}</div>
+                        <div class="message-time">${time}</div>
+                    </div>
+                </div>
+            `;
+            
+            messagesDiv.insertAdjacentHTML('beforeend', messageHTML);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesDiv = document.getElementById('chatMessages');
+            const indicatorHTML = `
+                <div class="message typing-indicator-wrapper">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            messagesDiv.insertAdjacentHTML('beforeend', indicatorHTML);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.querySelector('.typing-indicator-wrapper');
+            if (indicator) indicator.remove();
+        }
+
+        function getAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            for (const [key, response] of Object.entries(chatResponses)) {
+                if (lowerMessage.includes(key)) {
+                    return response;
+                }
+            }
+            
+            if (lowerMessage.includes('bonjour') || lowerMessage.includes('salut') || lowerMessage.includes('hello')) {
+                return 'Bonjour ! 👋 Ravi de vous voir ! Comment puis-je vous aider avec Budget Tracker aujourd\'hui ?';
+            }
+            
+            if (lowerMessage.includes('merci')) {
+                return 'Je vous en prie ! 😊 N\'hésitez pas si vous avez d\'autres questions. Je suis là pour vous aider !';
+            }
+            
+            return 'C\'est une excellente question ! 🤔 Pour une réponse plus détaillée, je vous invite à : 📧 Contacter notre support : contact@budgettracker.fr 💬 Consulter notre FAQ 📱 Rejoindre notre communauté Ou reformulez votre question, je ferai de mon mieux pour vous aider !';
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Navigation and page functions
+        function showPage(pageName) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageName).classList.add('active');
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            document.getElementById('navLinks').classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+        }
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .stat-item, .testimonial-card, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll('.stat-number');
+  const speed = 150;
+
+  const animateCounters = () => {
+    counters.forEach(counter => {
+      counter.classList.add('active'); // Active l’effet lumineux
+
+      const target = +counter.getAttribute('data-target');
+      const updateCount = () => {
+        const current = +counter.innerText;
+        const increment = target / speed;
+
+        if (current < target) {
+          counter.innerText = Math.ceil(current + increment);
+          setTimeout(updateCount, 20);
+        } else {
+          counter.innerText = target.toLocaleString();
+          counter.classList.remove('active'); // Désactive le glow après l’animation
+        }
+      };
+
+      updateCount();
+    });
+  };
+
+  // Lancement quand la section devient visible
+  const statsSection = document.querySelector('.stats');
+  let started = false;
+
+  window.addEventListener('scroll', () => {
+    const sectionPos = statsSection.getBoundingClientRect().top;
+    const screenPos = window.innerHeight / 1.2;
+
+    if (!started && sectionPos < screenPos) {
+      animateCounters();
+      started = true;
+    }
+  });
+});
+</script>
+
+
+</body>
+</html>

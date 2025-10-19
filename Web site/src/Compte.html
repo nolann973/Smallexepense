@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Connexion — SmallBudget</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  
+  <style>
+    :root {
+      --bg: #090e1a;
+      --bg-card: rgba(255,255,255,0.05);
+      --accent1: #22c55e;
+      --accent2: #10b981;
+      --text: #f2f5f8;
+      --muted: #a0a8b8;
+      --success: #10b981;
+      font-family: 'Inter', sans-serif;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at 20% 30%, rgba(34,197,94,0.15), transparent 60%),
+                  radial-gradient(circle at 80% 70%, rgba(16,185,129,0.15), transparent 60%),
+                  linear-gradient(180deg, var(--bg), #0a0a0a);
+      color: var(--text);
+      padding: 2rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 20px;
+      padding: 2rem 2.5rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 60px rgba(34,197,94,0.1);
+      animation: fadeIn .8s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #22c55e, #10b981, #22c55e);
+      background-size: 200% 100%;
+      animation: shimmer 3s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #22c55e, #10b981);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(34,197,94,0.3);
+    }
+
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    form { display: flex; flex-direction: column; gap: 1rem; }
+
+    label { 
+      font-size: 0.9rem; 
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    input {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: 0.2s;
+      width: 100%;
+    }
+
+    input::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+
+    input:focus {
+      border-color: var(--accent1);
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.1), 0 0 15px rgba(34,197,94,0.2);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .remember input[type="checkbox"] {
+      width: auto;
+      accent-color: var(--accent1);
+      cursor: pointer;
+    }
+
+    .forgot {
+      color: var(--accent1);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .forgot:hover {
+      color: var(--accent2);
+      text-decoration: underline;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      margin-top: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover:not(:disabled)::before {
+      left: 100%;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(34,197,94,0.4);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .divider {
+      text-align: center;
+      margin: 1.5rem 0;
+      position: relative;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 42%;
+      height: 1px;
+      background: rgba(34,197,94,0.2);
+    }
+
+    .divider::before { left: 0; }
+    .divider::after { right: 0; }
+
+    .social-login {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .btn-social {
+      padding: 0.65rem;
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.03);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 500;
+      color: var(--text);
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .btn-social:hover {
+      border-color: var(--accent1);
+      background: rgba(34,197,94,0.1);
+      transform: translateY(-2px);
+    }
+
+    .small { 
+      text-align: center; 
+      margin-top: 1.5rem; 
+      color: var(--muted); 
+      font-size: 0.9rem; 
+    }
+    
+    .small a { 
+      color: var(--accent1); 
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    
+    .small a:hover { 
+      color: var(--accent2);
+      text-decoration: underline; 
+    }
+
+    .counter {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--muted);
+      padding: 1rem;
+      background: rgba(34,197,94,0.05);
+      border-radius: 10px;
+      border: 1px solid rgba(34,197,94,0.15);
+    }
+    
+    .counter span {
+      color: var(--accent1);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .error-message {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 0.75rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .success-message {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #86efac;
+      padding: 0.75rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .firebase-status {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      border: 1px solid rgba(34,197,94,0.3);
+      display: none;
+    }
+
+    .firebase-status.show {
+      display: block;
+    }
+
+    @media (max-width: 480px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        padding: 1.5rem 1.8rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .social-login {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Statut Firebase -->
+  <div class="firebase-status" id="firebaseStatus">🔄 Connexion à Firebase...</div>
+
+  <!-- Page de Connexion -->
+  <div class="card" id="loginCard">
+    <div class="logo">
+      <div class="logo-icon">$</div>
+      <div class="logo-text">SmallBudget</div>
+    </div>
+
+    <h1>Connexion</h1>
+    <p>Bienvenue sur SmallBudget — connectez-vous pour gérer vos finances intelligemment.</p>
+
+    <div class="error-message" id="loginError"></div>
+    <div class="success-message" id="loginSuccess"></div>
+
+    <form id="loginForm">
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="vous@exemple.com" required>
+      </div>
+      <div>
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" placeholder="••••••••" required>
+      </div>
+
+      <div class="form-options">
+        <label class="remember">
+          <input type="checkbox" id="remember">
+          Se souvenir
+        </label>
+        <a href="#" class="forgot" id="forgotPassword">Mot de passe oublié ?</a>
+      </div>
+
+      <button class="btn" type="submit">Se connecter</button>
+    </form>
+
+    <div class="divider">ou continuer avec</div>
+
+    <div class="social-login">
+      <button class="btn-social" type="button" id="googleLoginBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Google
+      </button>
+      <button class="btn-social" type="button" id="facebookLoginBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+        Facebook
+      </button>
+    </div>
+
+    <div class="small">Pas de compte ? <a href="#" id="showRegister">Créer un compte</a></div>
+    <div class="counter">Utilisateurs inscrits : <span id="userCount">...</span></div>
+  </div>
+
+  <!-- Page d'Inscription -->
+  <div class="card hidden" id="registerCard">
+    <div class="logo">
+      <div class="logo-icon">$</div>
+      <div class="logo-text">SmallBudget</div>
+    </div>
+
+    <h1>Créer un compte</h1>
+    <p>Rejoignez SmallBudget et prenez le contrôle de vos finances dès aujourd'hui.</p>
+
+    <div class="error-message" id="registerError"></div>
+    <div class="success-message" id="registerSuccess"></div>
+
+    <form id="registerForm">
+      <div class="form-row">
+        <div>
+          <label for="firstName">Prénom</label>
+          <input id="firstName" type="text" placeholder="Jean" required>
+        </div>
+        <div>
+          <label for="lastName">Nom</label>
+          <input id="lastName" type="text" placeholder="Dupont" required>
+        </div>
+      </div>
+      <div>
+        <label for="regEmail">Email</label>
+        <input id="regEmail" type="email" placeholder="vous@exemple.com" required>
+      </div>
+      <div>
+        <label for="regPassword">Mot de passe</label>
+        <input id="regPassword" type="password" placeholder="••••••••" required minlength="6">
+      </div>
+      <div>
+        <label for="confirmPassword">Confirmer le mot de passe</label>
+        <input id="confirmPassword" type="password" placeholder="••••••••" required minlength="6">
+      </div>
+
+      <div class="form-options" style="justify-content: flex-start;">
+        <label class="remember">
+          <input type="checkbox" id="terms" required>
+          J'accepte les conditions d'utilisation
+        </label>
+      </div>
+
+      <button class="btn" type="submit">Créer mon compte</button>
+    </form>
+
+    <div class="divider">ou continuer avec</div>
+
+    <div class="social-login">
+      <button class="btn-social" type="button" id="googleRegisterBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Google
+      </button>
+      <button class="btn-social" type="button" id="facebookRegisterBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+        Facebook
+      </button>
+    </div>
+
+    <div class="small">Déjà un compte ? <a href="#" id="showLogin">Se connecter</a></div>
+    <div class="counter">Utilisateurs inscrits : <span id="userCount2">...</span></div>
+  </div>
+
+  <script>
+    // ========== CONFIGURATION FIREBASE ==========
+    // ⚠️ REMPLACEZ CETTE CONFIG PAR LA VÔTRE depuis Firebase Console
+   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCFVQqQ_oXh0ZUrPsm1tMEbFnBUhqyGmOQ",
+  authDomain: "smallbudget-35f9a.firebaseapp.com",
+  projectId: "smallbudget-35f9a",
+  storageBucket: "smallbudget-35f9a.firebasestorage.app",
+  messagingSenderId: "929584187603",
+  appId: "1:929584187603:web:4af37391df90260a2cec26",
+  measurementId: "G-XJQYCPZ1T3"
+};
+
+    // Initialiser Firebase
+    let app, auth, db;
+    try {
+      app = firebase.initializeApp(firebaseConfig);
+      auth = firebase.auth();
+      db = firebase.firestore();
+      console.log('✅ Firebase initialisé avec succès');
+      showFirebaseStatus('✅ Connecté à Firebase', 'success');
+    } catch (error) {
+      console.error('❌ Erreur Firebase:', error);
+      showFirebaseStatus('❌ Erreur de connexion Firebase - Vérifiez votre configuration', 'error');
+    }
+
+    // ========== ÉLÉMENTS DOM ==========
+    const loginCard = document.getElementById('loginCard');
+    const registerCard = document.getElementById('registerCard');
+    const countEl = document.getElementById('userCount');
+    const countEl2 = document.getElementById('userCount2');
+
+    // ========== FONCTIONS UTILITAIRES ==========
+    function showFirebaseStatus(message, type) {
+      const status = document.getElementById('firebaseStatus');
+      status.textContent = message;
+      status.style.borderColor = type === 'success' ? 'rgba(34,197,94,0.5)' : 'rgba(239,68,68,0.5)';
+      status.classList.add('show');
+      setTimeout(() => status.classList.remove('show'), 3000);
+    }
+
+    function showError(elementId, message) {
+      const el = document.getElementById(elementId);
+      el.textContent = message;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 5000);
+    }
+
+    function showSuccess(elementId, message) {
+      const el = document.getElementById(elementId);
+      el.textContent = message;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 5000);
+    }
+
+    // ========== COMPTEUR D'UTILISATEURS ==========
+    async function updateUserCount() {
+      try {
+        const snapshot = await db.collection('users').get();
+        const count = snapshot.size;
+        countEl.textContent = count;
+        countEl2.textContent = count;
+      } catch (error) {
+        console.error('Erreur compteur:', error);
+        countEl.textContent = '...';
+        countEl2.textContent = '...';
+      }
+    }
+
+    // Charger le compteur au démarrage
+    updateUserCount();
+
+    // ========== SAUVEGARDER UTILISATEUR DANS FIRESTORE ==========
+    async function saveUserToFirestore(user, additionalData = {}) {
+      try {
+        await db.collection('users').doc(user.uid).set({
+          email: user.email,
+          displayName: user.displayName || '',
+          photoURL: user.photoURL || '',
+          firstName: additionalData.firstName || '',
+          lastName: additionalData.lastName || '',
+          loginMethod: additionalData.loginMethod || 'email',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+        
+        updateUserCount();
+      } catch (error) {
+        console.error('Erreur sauvegarde Firestore:', error);
+      }
+    }
+
+    // ========== GOOGLE SIGN-IN ==========
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+    document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+      try {
+        const result = await auth.signInWithPopup(googleProvider);
+        const user = result.user;
+        
+        await saveUserToFirestore(user, { loginMethod: 'google' });
+        
+        showSuccess('loginSuccess', `✅ Bienvenue ${user.displayName || user.email} !`);
+        showFirebaseStatus('✅ Connexion Google réussie', 'success');
+      } catch (error) {
+        console.error('Erreur Google:', error);
+        showError('loginError', `❌ Erreur: ${error.message}`);
+      }
+    });
+
+    document.getElementById('googleRegisterBtn').addEventListener('click', async () => {
+      try {
+        const result = await auth.signInWithPopup(googleProvider);
+        const user = result.user;
+        
+        await saveUserToFirestore(user, { loginMethod: 'google' });
+        
+        showSuccess('registerSuccess', `✅ Bienvenue ${user.displayName || user.email} !`);
+        showFirebaseStatus('✅ Inscription Google réussie', 'success');
+        
+        setTimeout(() => {
+          registerCard.classList.add('hidden');
+          loginCard.classList.remove('hidden');
+        }, 2000);
+      } catch (error) {
+        console.error('Erreur Google:', error);
+        showError('registerError', `❌ Erreur: ${error.message}`);
+      }
+    });
+
+    // ========== FACEBOOK LOGIN (Info) ==========
+    document.getElementById('facebookLoginBtn').addEventListener('click', () => {
+      showError('loginError', '🔷 Facebook Login bientôt disponible. Utilisez Google ou Email.');
+    });
+
+    document.getElementById('facebookRegisterBtn').addEventListener('click', () => {
+      showError('registerError', '🔷 Facebook Login bientôt disponible. Utilisez Google ou Email.');
+    });
+
+    // ========== CONNEXION EMAIL/PASSWORD ==========
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const btn = e.target.querySelector('.btn');
+      
+      btn.textContent = 'Connexion...';
+      btn.disabled = true;
+      
+      try {
+        const result = await auth.signInWithEmailAndPassword(email, password);
+        const user = result.user;
+        
+        await db.collection('users').doc(user.uid).update({
+          lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        showSuccess('loginSuccess', `✅ Connexion réussie ! Bienvenue ${email}`);
+        showFirebaseStatus('✅ Connecté avec succès', 'success');
+      } catch (error) {
+        console.error('Erreur connexion:', error);
+        let message = 'Erreur de connexion';
+        if (error.code === 'auth/user-not-found') message = 'Aucun compte trouvé avec cet email';
+        if (error.code === 'auth/wrong-password') message = 'Mot de passe incorrect';
+        if (error.code === 'auth/invalid-email') message = 'Email invalide';
+        showError('loginError', `❌ ${message}`);
+      } finally {
+        btn.textContent = 'Se connecter';
+        btn.disabled = false;
+      }
+    });
+
+    // ========== INSCRIPTION EMAIL/PASSWORD ==========
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const terms = document.getElementById('terms').checked;
+      
+      // Validations
+      if (password !== confirmPassword) {
+        showError('registerError', '❌ Les mots de passe ne correspondent pas');
+        return;
+      }
+      
+      if (password.length < 6) {
+        showError('registerError', '❌ Le mot de passe doit contenir au moins 6 caractères');
+        return;
+      }
+      
+      if (!terms) {
+        showError('registerError', '❌ Vous devez accepter les conditions d\'utilisation');
+        return;
+      }
+      
+      const btn = e.target.querySelector('.btn');
+      btn.textContent = 'Création du compte...'; 
+      btn.disabled = true;
+      
+      try {
+        // Créer le compte Firebase
+        const result = await auth.createUserWithEmailAndPassword(email, password);
+        const user = result.user;
+        
+        // Mettre à jour le profil
+        await user.updateProfile({
+          displayName: `${firstName} ${lastName}`
+        });
+        
+        // Sauvegarder dans Firestore
+        await saveUserToFirestore(user, {
+          firstName,
+          lastName,
+          loginMethod: 'email'
+        });
+        
+        showSuccess('registerSuccess', `✅ Bienvenue ${firstName} ! Votre compte a été créé avec succès !`);
+        showFirebaseStatus('✅ Compte créé avec succès', 'success');
+        
+        // Réinitialiser et retourner à la connexion
+        e.target.reset();
+        setTimeout(() => {
+          registerCard.classList.add('hidden');
+          loginCard.classList.remove('hidden');
+        }, 2000);
+      } catch (error) {
+        console.error('Erreur inscription:', error);
+        let message = 'Erreur lors de l\'inscription';
+        if (error.code === 'auth/email-already-in-use') message = 'Cet email est déjà utilisé';
+        if (error.code === 'auth/invalid-email') message = 'Email invalide';
+        if (error.code === 'auth/weak-password') message = 'Mot de passe trop faible';
+        showError('registerError', `❌ ${message}`);
+      } finally {
+        btn.textContent = 'Créer mon compte';
+        btn.disabled = false;
+      }
+    });
+
+    // ========== MOT DE PASSE OUBLIÉ ==========
+    document.getElementById('forgotPassword').addEventListener('click', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      
+      if (!email) {
+        showError('loginError', '❌ Veuillez entrer votre email d\'abord');
+        return;
+      }
+      
+      try {
+        await auth.sendPasswordResetEmail(email);
+        showSuccess('loginSuccess', `✅ Email de réinitialisation envoyé à ${email}`);
+      } catch (error) {
+        console.error('Erreur reset:', error);
+        showError('loginError', '❌ Erreur lors de l\'envoi de l\'email');
+      }
+    });
+
+    // ========== NAVIGATION ENTRE PAGES ==========
+    document.getElementById('showRegister').addEventListener('click', (e) => {
+      e.preventDefault();
+      loginCard.classList.add('hidden');
+      registerCard.classList.remove('hidden');
+    });
+
+    document.getElementById('showLogin').addEventListener('click', (e) => {
+      e.preventDefault();
+      registerCard.classList.add('hidden');
+      loginCard.classList.remove('hidden');
+    });
+
+    // ========== OBSERVER L'ÉTAT DE CONNEXION ==========
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log('👤 Utilisateur connecté:', user.email);
+        // Vous pouvez rediriger vers le dashboard ici
+        // window.location.href = '/dashboard.html';
+      } else {
+        console.log('👤 Aucun utilisateur connecté');
+      }
+    });
+  </script>
+</body>
+</html>
